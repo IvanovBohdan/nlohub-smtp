@@ -1,0 +1,33 @@
+{
+  "name": "nlohub-smtp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanovBohdan/nlohub-smtp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/IvanovBohdan/nlohub-smtp/issues"
+  },
+  "homepage": "https://github.com/IvanovBohdan/nlohub-smtp#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mailparser": "^3.7.2",
+    "nlohub-smtp": "file:",
+    "oci-sdk": "^2.102.0",
+    "smtp-server": "^3.13.6"
+  }
+}
