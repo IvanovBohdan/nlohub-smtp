@@ -130,5 +130,4 @@ dist
 .pnp.*
 
 
-oci_config
-*.pem
+sample-email.json

@@ -1,25 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+const {PORT} = process.env;
+
 import { SMTPServer } from "smtp-server";
 import { simpleParser } from "mailparser";
-import { queue, common } from "oci-sdk";
-
-const queueId = process.env.QUEUE_ID;
-const messagesEndpoint =
-    process.env.MESSAGES_ENDPOINT ||
-    "https://cell-1.queue.messaging.uk-london-1.oci.oraclecloud.com";
-const PORT = process.env.PORT || 25;
-
-const authProvider = new common.ConfigFileAuthenticationDetailsProvider(
-    "./oci_config"
-);
-
-const queueClient = new queue.QueueClient({
-    authenticationDetailsProvider: authProvider,
-});
-
-queueClient.endpoint = messagesEndpoint;
+import {  publishEmail } from "./services/publishService.js";
 
 const smtpServer = new SMTPServer({
     secure: false,
@@ -28,17 +14,7 @@ const smtpServer = new SMTPServer({
     async onData(stream, session, callback) {
         try {
             const parsedEmail = await simpleParser(stream, {});
-            console.log(parsedEmail.subject);
-            queueClient.putMessages({
-                putMessagesDetails: {
-                    messages: [
-                        {
-                            content: JSON.stringify(parsedEmail),
-                        },
-                    ],
-                },
-                queueId,
-            });
+            publishEmail(parsedEmail);
         } catch (error) {
             console.error(error);
             return callback(new Error("Email processing failed!"));

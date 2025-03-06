@@ -27,7 +27,8 @@
     "dotenv": "^16.4.7",
     "mailparser": "^3.7.2",
     "nlohub-smtp": "file:",
-    "oci-sdk": "^2.102.0",
-    "smtp-server": "^3.13.6"
+    "redis": "^4.7.0",
+    "smtp-server": "^3.13.6",
+    "uuid": "^11.1.0"
   }
 }
