@@ -5,10 +5,10 @@ export async function publishEmail(email) {
     const redisClient = await getRedisClient();
     try {
         const redisKey = `${email.to.text.replaceAll(/\s/g, ":")}:${uuidv4()}`;
-        await redisClient.set(redisKey, JSON.stringify(email), {
-            EX: 60 * 60 * 24,
-        });
         for (const recipient of email.to.value) {
+            await redisClient.hSet(recipient, redisKey, JSON.stringify(email), {
+                EX: 60 * 60 * 24,
+            });
             await redisClient.publish(recipient.address, redisKey);
         }
     } catch (error) {
