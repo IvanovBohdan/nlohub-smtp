@@ -5,6 +5,7 @@ export async function publishEmail(email) {
     const redisClient = await getRedisClient();
     try {
         const redisKey = `${email.to.text.replaceAll(/\s/g, ":")}:${uuidv4()}`;
+        email.messageId = redisKey;
         for (const recipient of email.to.value) {
             await redisClient
                 .multi()
